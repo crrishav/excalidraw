@@ -2,7 +2,7 @@ import dynamic from "next/dynamic";
 import Script from "next/script";
 
 import "../common.scss";
-import "@excalidraw/excalidraw/dist/prod/index.css";
+import "@excalidraw/excalidraw/index.css";
 
 // Since client components get prerenderd on server as well hence importing the excalidraw stuff dynamically
 // with ssr false
