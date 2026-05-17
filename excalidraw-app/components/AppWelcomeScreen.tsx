@@ -1,4 +1,3 @@
-import { POINTER_EVENTS } from "@excalidraw/common";
 import { useI18n } from "@excalidraw/excalidraw/i18n";
 import { WelcomeScreen } from "@excalidraw/excalidraw/index";
 import React from "react";
@@ -22,7 +21,14 @@ const SaurabhsLogo = () => (
         filter: "drop-shadow(0 8px 16px rgba(79, 70, 229, 0.15))",
       }}
     >
-      <rect x="10" y="10" width="80" height="80" rx="24" fill="url(#saurabh-grad)" />
+      <rect
+        x="10"
+        y="10"
+        width="80"
+        height="80"
+        rx="24"
+        fill="url(#saurabh-grad)"
+      />
       <defs>
         <linearGradient id="saurabh-grad" x1="0%" y1="0%" x2="100%" y2="100%">
           <stop offset="0%" stopColor="#4f46e5" />
