@@ -18,7 +18,6 @@ import { getShortcutKey } from "../../shortcut";
 import {
   actionClearCanvas,
   actionLink,
-  actionToggleSearchMenu,
 } from "../../actions";
 import {
   actionCopyElementLink,
@@ -49,7 +48,6 @@ import {
   ExportImageIcon,
   mermaidLogoIcon,
   brainIconThin,
-  LibraryIcon,
   historyCommandIcon,
 } from "../icons";
 
@@ -60,16 +58,6 @@ import { activeConfirmDialogAtom } from "../ActiveConfirmDialog";
 import { useStable } from "../../hooks/useStable";
 
 import { Ellipsify } from "../Ellipsify";
-
-import {
-  distributeLibraryItemsOnSquareGrid,
-  libraryItemsAtom,
-} from "../../data/library";
-
-import {
-  useLibraryCache,
-  useLibraryItemSvg,
-} from "../../hooks/useLibraryItemSvg";
 
 import * as defaultItems from "./defaultCommandPaletteItems";
 import "./CommandPalette.scss";
@@ -217,33 +205,7 @@ function CommandPaletteInner({
     appProps,
   });
 
-  const [libraryItemsData] = useAtom(libraryItemsAtom);
-  const libraryCommands: CommandPaletteItem[] = useMemo(() => {
-    return (
-      libraryItemsData.libraryItems
-        ?.filter(
-          (libraryItem): libraryItem is MarkRequired<LibraryItem, "name"> =>
-            !!libraryItem.name,
-        )
-        .map((libraryItem) => ({
-          label: libraryItem.name,
-          icon: (
-            <LibraryItemIcon
-              id={libraryItem.id}
-              elements={libraryItem.elements}
-            />
-          ),
-          category: "Library",
-          order: getCategoryOrder("Library"),
-          haystack: deburr(libraryItem.name),
-          perform: () => {
-            app.onInsertElements(
-              distributeLibraryItemsOnSquareGrid([libraryItem]),
-            );
-          },
-        })) || []
-    );
-  }, [app, libraryItemsData.libraryItems]);
+  const libraryCommands: CommandPaletteItem[] = [];
 
   useEffect(() => {
     // these props change often and we don't want them to re-run the effect
@@ -424,35 +386,8 @@ function CommandPaletteInner({
       ];
 
       const additionalCommands: CommandPaletteItem[] = [
-        {
-          label: t("toolBar.library"),
-          category: DEFAULT_CATEGORIES.app,
-          icon: LibraryIcon,
-          viewMode: false,
-          perform: () => {
-            if (uiAppState.openSidebar) {
-              setAppState({
-                openSidebar: null,
-              });
-            } else {
-              setAppState({
-                openSidebar: {
-                  name: DEFAULT_SIDEBAR.name,
-                  tab: DEFAULT_SIDEBAR.defaultTab,
-                },
-              });
-            }
-          },
-        },
-        {
-          label: t("search.title"),
-          category: DEFAULT_CATEGORIES.app,
-          icon: searchIcon,
-          viewMode: true,
-          perform: () => {
-            actionManager.executeAction(actionToggleSearchMenu);
-          },
-        },
+
+
         {
           label: t("labels.shapeSwitch"),
           category: DEFAULT_CATEGORIES.elements,
@@ -972,20 +907,7 @@ function CommandPaletteInner({
     </Dialog>
   );
 }
-const LibraryItemIcon = ({
-  id,
-  elements,
-}: {
-  id: LibraryItem["id"] | null;
-  elements: LibraryItem["elements"] | undefined;
-}) => {
-  const ref = useRef<HTMLDivElement | null>(null);
-  const { svgCache } = useLibraryCache();
 
-  useLibraryItemSvg(id, elements, svgCache, ref);
-
-  return <div className="library-item-icon" ref={ref} />;
-};
 
 const CommandItem = ({
   command,
