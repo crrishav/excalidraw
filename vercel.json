@@ -1,7 +1,4 @@
 {
-  "buildCommand": "yarn build",
-  "outputDirectory": "examples/with-nextjs/.next",
-  "installCommand": "yarn install",
   "public": true,
   "headers": [
     {

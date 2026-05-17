@@ -1,3 +1,5 @@
+﻿@import "@excalidraw/excalidraw/index.css";
+
 * {
   box-sizing: border-box;
   font-family: sans-serif;
@@ -8,8 +10,6 @@ a {
   font-size: 20px;
   text-decoration: none;
   font-weight: 500;
-
-@import "@excalidraw/excalidraw/index.css";
 }
 
 .page-title {

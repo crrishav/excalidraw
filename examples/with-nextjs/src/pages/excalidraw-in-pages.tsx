@@ -1,7 +1,6 @@
-import dynamic from "next/dynamic";
+﻿import dynamic from "next/dynamic";
 
 import "../common.scss";
-import "@excalidraw/excalidraw/index.css";
 
 // Since client components get prerenderd on server as well hence importing the excalidraw stuff dynamically
 // with ssr false
