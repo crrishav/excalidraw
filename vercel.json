@@ -1,6 +1,6 @@
 {
   "buildCommand": "yarn build",
-  "outputDirectory": "excalidraw-app/build",
+  "outputDirectory": "examples/with-nextjs/.next",
   "installCommand": "yarn install",
   "public": true,
   "headers": [
